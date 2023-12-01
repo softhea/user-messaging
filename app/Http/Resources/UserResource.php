@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,8 +18,8 @@ class UserResource extends JsonResource
         return [
             "id" => $this->id,
             "username" => $this->username,
-            "role" => $this->role ?? "Admin",
-            "isActive" => $this->isActive ?? true,
+            "role" => User::ROLES[$this->role_id],
+            "isActive" => null !== $this->email_verified_at,
             "canBeUpdated" => $this->canBeUpdated ?? true,
             "canBeDeleted" => $this->canBeDeleted ?? true,
         ];
